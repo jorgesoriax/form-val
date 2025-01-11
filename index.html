@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>2025-01-05 Form</title>
+        <link rel="stylesheet" href="css/main.css" />
+    </head>
+    <body>
+        <video
+            class="background-video"
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="auto"
+            disablePictureInPicture
+        >
+            <source src="/assets/background.webm" type="video/mp4" />
+            Tu navegador no soporta el video.
+        </video>
+        <main>
+            <!-- Sección hero -->
+            <section class="hero">
+                <div class="hero__content">
+                    <h1 class="hero__content-title">El secreto del éxito</h1>
+                    <p class="hero__content-description description--light">
+                        Puedes lograr cualquier cosa que desees si trabajas con
+                        dedicación, confías en el proceso y sigues tu
+                        plan.
+                    </p>
+                </div>
+            </section>
+            <!-- Sección de formulario -->
+            <section class="form">
+                <!-- Encabezado de formulario -->
+                <header class="form__header">
+                    <!-- <img
+                        class="form__header-logo"
+                        src="/assets/logoipsum.svg"
+                    /> -->
+                    <h2 class="form__header-title">Comencemos</h2>
+                    <p class="form__header-description description--dark">
+                        Bienvenido a ACME - Vamos a crear tu cuenta
+                    </p>
+                    <div
+                        id="form__header-message-summary"
+                        class="form__header-message-summary form__header-message-summary--error"
+                    >
+                        <div class="form__message-summary-title">
+                            <svg
+                                class="form__message-summary-title-error-icon"
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 256 256"
+                            >
+                                <path
+                                    d="M236.8,188.09,149.35,36.22h0a24.76,24.76,0,0,0-42.7,0L19.2,188.09a23.51,23.51,0,0,0,0,23.72A24.35,24.35,0,0,0,40.55,224h174.9a24.35,24.35,0,0,0,21.33-12.19A23.51,23.51,0,0,0,236.8,188.09ZM120,104a8,8,0,0,1,16,0v40a8,8,0,0,1-16,0Zm8,88a12,12,0,1,1,12-12A12,12,0,0,1,128,192Z"
+                                ></path>
+                            </svg>
+                            <p></p>
+                        </div>
+                        <ul></ul>
+                    </div>
+                </header>
+                <!-- Formulario -->
+                <form id="form" class="form__body" action="/" method="GET">
+                    <div class="form__group">
+                        <label class="form__group-label" for="username">
+                            Nombre de usuario
+                        </label>
+
+                        <input
+                            class="form__group-input"
+                            type="text"
+                            id="username"
+                            placeholder="Introduce tu nombre de usuario"
+                        />
+                        <span class="form__group-caption description--dark">
+                            Crea una nombre de usuario de hasta 12 caracteres.
+                        </span>
+                    </div>
+                    <div class="form__group">
+                        <label class="form__group-label" for="email">
+                            Correo electrónico
+                        </label>
+                        <input
+                            class="form__group-input"
+                            type="text"
+                            id="email"
+                            placeholder="Introduce tu correo electrónico"
+                        />
+                    </div>
+                    <div class="form__group">
+                        <label class="form__group-label" for="password">
+                            Contraseña
+                        </label>
+
+                        <div class="form__group-input-container">
+                            <input
+                                class="form__group-input"
+                                type="password"
+                                id="password"
+                                placeholder="Introduce tu contraseña"
+                            />
+                            <span class="form__group-password-visibility">
+                                <img
+                                    class="form__group-icon-open"
+                                    src="/assets/icon-eye.svg"
+                                    alt=""
+                                />
+                                <img
+                                    class="form__group-icon-close"
+                                    src="/assets/icon-eye-slash.svg"
+                                    alt=""
+                                />
+                            </span>
+                        </div>
+                        <span class="form__group-caption description--dark">
+                            Crea una contraseña de al menos 8 caracteres,
+                            incluye mayúsculas, minúsculas, números y símbolos.
+                        </span>
+                    </div>
+                    <div class="form__group">
+                        <label class="form__group-label" for="policy">
+                            Estoy de acuerdo con la
+                            <a href="#">política de privacidad</a>
+                        </label>
+                        <input
+                            class="form__group-input"
+                            type="checkbox"
+                            id="policy"
+                        />
+                    </div>
+                    <button
+                        id="form__button"
+                        class="form__button"
+                        type="submit"
+                    >
+                        Registrate
+                    </button>
+                </form>
+                <!-- Pie de página de formulario -->
+                <footer class="form__footer">
+                    <p class="form__footer-description description--dark">
+                        ¿Ya tienes una cuenta? <a href="#">Iniciar sesión</a>
+                    </p>
+                </footer>
+            </section>
+        </main>
+        <script src="/js/main.js" />
+    </body>
+</html>
