@@ -1,11 +1,20 @@
 @import "normalize.css";
 
+:root {
+    --description-light: #c4c4c4;
+    --description-dark: #535353;
+    --font-color-placeholder: #848485;
+    --error: #ef4444;
+    --error-bg: #fef2f2;
+    --input-bg: #f1f5f9;
+    --font-size-description: 13px;
+}
 * {
     box-sizing: border-box;
 }
 a {
     text-decoration: none;
-    color: #000;
+    color: black;
     font-weight: 600;
 }
 a:hover {
@@ -22,14 +31,8 @@ h1 {
 h2 {
     font-size: 2.488rem;
 }
-.description--dark {
-    color: #535353;
-}
-.description--light {
-    color: #c4c4c4;
-}
 body {
-    background-color: #000;
+    background-color: black;
     width: 100%;
     height: 100vh;
     font-family: "Inter", sans-serif;
@@ -71,11 +74,12 @@ main section {
     display: flex;
     align-items: end;
 }
-.hero__content-title {
+.hero__title {
     text-wrap: balance;
 }
-.hero__content-description {
+.hero__description {
     margin-bottom: 0;
+    color: var(--description-light);
 }
 .hero::before,
 .hero::after {
@@ -107,7 +111,6 @@ main section {
 .form__header,
 .form__body,
 .form__footer {
-    /* border: 1px solid red; */
     width: 360px;
 }
 .form__header {
@@ -117,93 +120,93 @@ main section {
     margin-bottom: 24px;
 }
 .form__header-title {
-    /* margin-top: 120px; */
+    margin-top: 0px;
     margin-bottom: 8px;
 }
 .form__header-description {
     margin-top: 0;
 }
-.form__header-message-summary {
+.form__summary {
     width: 100%;
-    background-color: #f1f5f9;
+    background-color: var(--input-bg);
     border-radius: 8px;
     padding: 12px;
-    font-size: 13px;
+    font-size: var(--font-size-description);
     display: none;
 }
-.form__header-message-summary--show {
+.form__summary--visible {
     display: block;
 }
-.form__header-message-summary--error {
-    background-color: #fef2f2;
+.form__summary--error {
+    background-color: var(--error-bg);
 }
-.form__header-message-summary p {
+.form__summary-description {
     margin: 0;
 }
-.form__message-summary-title {
+.form__summary-header {
     display: flex;
     gap: 8px;
 }
-.form__message-summary-title svg {
+.form__summary-header img {
     width: 16px;
     height: 16px;
-    fill: #ef4444;
 }
-.form__header-message-summary ul {
+.form__summary-list {
     margin-bottom: 0;
 }
-.form__header-message-summary ul li:not(:last-child) {
+.form__summary-list li:not(:last-child) {
     margin-bottom: 2px;
 }
 .form__body {
-    /* border: 1px solid red; */
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
-.form__group {
-    /* border: 1px solid red; */
+.form__field {
     position: relative;
     display: flex;
     flex-direction: column;
     gap: 8px;
 }
-.form__group:has(input[type="checkbox"]) {
+.form__field:has(input[type="checkbox"]) {
     flex-direction: row-reverse;
     justify-content: left;
 }
-.form__group:has(input[type="checkbox"]) label {
-    font-size: 13px;
+.form__field:has(input[type="checkbox"]) .form__label {
+    font-size: var(--font-size-description);
 }
-.form__group-input {
-    background-color: #f1f5f9;
+.form__input {
+    background-color: var(--input-bg);
     border: 0;
     padding: 12px;
     border-radius: 8px;
 }
-.form__group--error .form__group-input {
-    border: 2px solid #ef4444;
+.form__field--error .form__label:not([for="policy"]) {
+    color: var(--error);
 }
-.form__group-input::placeholder {
-    color: #848485;
-    font-size: 13px;
+.form__field--error .form__input {
+    border: 2px solid var(--error);
 }
-.form__group-input-container {
+.form__input::placeholder {
+    color: var(--font-color-placeholder);
+    font-size: var(--font-size-description);
+}
+.form__input-container {
     position: relative;
 }
-.form__group-input[id="password"] {
+.form__input[id="password"] {
     width: 100%;
 }
-.form__group-icon-close {
+.form__visibility-icon--close {
     display: none;
 }
-.is-password-visible .form__group-icon-open {
+.form__field--password-visible .form__visibility-icon--open {
     display: none;
 }
-.is-password-visible .form__group-icon-close {
+.form__field--password-visible .form__visibility-icon--close {
     display: block;
 }
-.form__group-password-visibility {
+.form__visibility {
     position: absolute;
     bottom: 0;
     right: 0;
@@ -214,17 +217,18 @@ main section {
     align-items: center;
     cursor: pointer;
 }
-.form__group-password-visibility img {
+.form__visibility img {
     width: 24px;
     height: 24px;
 }
-.form__group-caption {
-    font-size: 13px;
+.form__caption {
+    font-size: var(--font-size-description);
+    color: var(--description-dark);
 }
 .form__button {
-    background-color: #000;
+    background-color: black;
     color: white;
-    padding: 8px;
+    padding: 12px 24px;
     border: 0;
     border-radius: 8px;
     cursor: pointer;
@@ -235,6 +239,7 @@ main section {
 }
 .form__footer-description {
     text-align: center;
+    color: var(--description-dark);
 }
 
 @keyframes appear {

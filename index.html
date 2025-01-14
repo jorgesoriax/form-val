@@ -17,14 +17,13 @@
             disablePictureInPicture
         >
             <source src="/assets/background.webm" type="video/mp4" />
-            Tu navegador no soporta el video.
         </video>
         <main>
             <!-- Sección hero -->
             <section class="hero">
                 <div class="hero__content">
-                    <h1 class="hero__content-title">El secreto del éxito</h1>
-                    <p class="hero__content-description description--light">
+                    <h1 class="hero__title">El secreto del éxito</h1>
+                    <p class="hero__description">
                         Puedes lograr cualquier cosa que desees si trabajas con
                         dedicación, confías en el proceso y sigues tu plan.
                     </p>
@@ -34,100 +33,96 @@
             <section class="form">
                 <!-- Encabezado de formulario -->
                 <header class="form__header">
-                    <!-- <img
-                        class="form__header-logo"
-                        src="/assets/logoipsum.svg"
-                    /> -->
                     <h2 class="form__header-title">Comencemos</h2>
-                    <p class="form__header-description description--dark">
+                    <p
+                        class="form__header-description form__header-description--dark"
+                    >
                         Bienvenido a ACME - Vamos a crear tu cuenta
                     </p>
                     <div
-                        id="form__header-message-summary"
-                        class="form__header-message-summary form__header-message-summary--error"
+                        id="form__summary"
+                        class="form__summary form__summary--error"
                     >
-                        <div class="form__message-summary-title">
-                            <svg
-                                class="form__message-summary-title-error-icon"
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 256 256"
-                            >
-                                <path
-                                    d="M236.8,188.09,149.35,36.22h0a24.76,24.76,0,0,0-42.7,0L19.2,188.09a23.51,23.51,0,0,0,0,23.72A24.35,24.35,0,0,0,40.55,224h174.9a24.35,24.35,0,0,0,21.33-12.19A23.51,23.51,0,0,0,236.8,188.09ZM120,104a8,8,0,0,1,16,0v40a8,8,0,0,1-16,0Zm8,88a12,12,0,1,1,12-12A12,12,0,0,1,128,192Z"
-                                ></path>
-                            </svg>
-                            <p></p>
+                        <div class="form__summary-header">
+                            <img
+                                class="form__summary-icon"
+                                src="/assets/icon-warning.svg"
+                                alt=""
+                            />
+                            <p class="form__summary-description">
+                                <!-- Enunciado sobre conteo de errores -->
+                            </p>
                         </div>
-                        <ul></ul>
+                        <ul class="form__summary-list">
+                            <!-- Lista de errores -->
+                        </ul>
                     </div>
                 </header>
                 <!-- Formulario -->
                 <form id="form" class="form__body" action="/" method="GET">
-                    <div class="form__group">
-                        <label class="form__group-label" for="username">
+                    <div class="form__field">
+                        <label class="form__label" for="username">
                             Nombre de usuario
                         </label>
 
                         <input
-                            class="form__group-input"
+                            class="form__input"
                             type="text"
                             id="username"
                             placeholder="Introduce tu nombre de usuario"
                         />
-                        <span class="form__group-caption description--dark">
+                        <span class="form__caption description--dark">
                             Elige un nombre de usuario que tenga un máximo de 12
                             caracteres.
                         </span>
                     </div>
-                    <div class="form__group">
-                        <label class="form__group-label" for="email">
+                    <div class="form__field">
+                        <label class="form__label" for="email">
                             Correo electrónico
                         </label>
                         <input
-                            class="form__group-input"
+                            class="form__input"
                             type="text"
                             id="email"
                             placeholder="Introduce tu correo electrónico"
                         />
                     </div>
-                    <div class="form__group">
-                        <label class="form__group-label" for="password">
+                    <div class="form__field">
+                        <label class="form__label" for="password">
                             Contraseña
                         </label>
-
-                        <div class="form__group-input-container">
+                        <div class="form__input-container">
                             <input
-                                class="form__group-input"
+                                class="form__input"
                                 type="password"
                                 id="password"
                                 placeholder="Introduce tu contraseña"
                             />
-                            <span class="form__group-password-visibility">
+                            <span class="form__visibility">
                                 <img
-                                    class="form__group-icon-open"
+                                    class="form__visibility-icon form__visibility-icon--open"
                                     src="/assets/icon-eye.svg"
                                     alt=""
                                 />
                                 <img
-                                    class="form__group-icon-close"
+                                    class="form__visibility-icon form__visibility-icon--close"
                                     src="/assets/icon-eye-slash.svg"
-                                    alt=""
                                 />
                             </span>
                         </div>
-                        <span class="form__group-caption description--dark">
+                        <span class="form__caption">
                             Crea una contraseña segura de al menos 8 caracteres.
                             Incluye letras mayúsculas, minúsculas, números y al
                             menos un símbolo.
                         </span>
                     </div>
-                    <div class="form__group">
-                        <label class="form__group-label" for="policy">
+                    <div class="form__field">
+                        <label class="form__label" for="policy">
                             Estoy de acuerdo con la
                             <a href="#">Política de privacidad</a>.
                         </label>
                         <input
-                            class="form__group-input"
+                            class="form__input"
                             type="checkbox"
                             id="policy"
                         />
@@ -142,12 +137,229 @@
                 </form>
                 <!-- Pie de página de formulario -->
                 <footer class="form__footer">
-                    <p class="form__footer-description description--dark">
+                    <p class="form__footer-description">
                         ¿Ya tienes una cuenta? <a href="#">Inicia sesión</a>
                     </p>
                 </footer>
             </section>
         </main>
-        <script src="/js/main.js" />
+        <!-- <script src="/js/main.js" /> -->
+        <script>
+            const form = document.getElementById("form");
+            const summary = document.getElementById("form__summary");
+            const summaryDescription = summary.querySelector(
+                ".form__summary-description"
+            );
+            const summaryList = summary.querySelector(".form__summary-list");
+            const passwordVisibilityButton =
+                document.querySelector(".form__visibility");
+
+            // Se definen las diferentes condiciones. Las condiciones responden a la
+            // pregunta ¿Cuándo se cumple la condición?
+            const conditions = {
+                isFilled: (value) => value !== "",
+                maxLength: (value, maxLength) => value.length <= maxLength,
+                minLength: (value, minLength) => value.length >= minLength,
+                regex: (value, pattern) => pattern.test(value),
+                isChecked: (value) => value === true,
+            };
+
+            // Se asignan condiciones para cada input a partir de su atributo id.
+            const rules = {
+                username: {
+                    listOfConditions: [
+                        {
+                            func: conditions["isFilled"],
+                            args: [],
+                            errorMessage:
+                                "El campo de nombre de usuario no debe estar vacío.",
+                        },
+                        {
+                            func: conditions["maxLength"],
+                            args: [12],
+                            errorMessage:
+                                "La longitud del nombre de usuario es mayor a lo recomendado.",
+                        },
+                    ],
+                },
+                email: {
+                    listOfConditions: [
+                        {
+                            func: conditions["isFilled"],
+                            args: [],
+                            errorMessage:
+                                "El campo de correo electrónico no debe estar vacío.",
+                        },
+                        {
+                            func: conditions["regex"],
+                            args: [/^\S+@\S+\.\S+$/],
+                            errorMessage:
+                                "El formato del correo es incorrecto.",
+                        },
+                    ],
+                },
+                password: {
+                    listOfConditions: [
+                        {
+                            func: conditions["isFilled"],
+                            args: [],
+                            errorMessage:
+                                "El campo de contraseña no debe estar vacío.",
+                        },
+                        {
+                            func: conditions["minLength"],
+                            args: [8],
+                            errorMessage:
+                                "La longitud de la contraseña es menor a lo recomendado.",
+                        },
+                        {
+                            func: conditions["regex"],
+                            args: [
+                                /(?=.*[A-Z])(?=.*[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-])/,
+                            ],
+                            errorMessage:
+                                "El formato de la contraseña es incorrecto.",
+                        },
+                    ],
+                },
+                policy: {
+                    listOfConditions: [
+                        {
+                            func: conditions["isChecked"],
+                            args: [],
+                            errorMessage:
+                                "Acepta la Política de privacidad para crear una cuenta.",
+                        },
+                    ],
+                },
+            };
+
+            /**
+             * Se validan cada uno de los inputs
+             */
+            function validateForm(inputs) {
+                const errors = [];
+
+                inputs.forEach((input) => {
+                    const inputName = input.id;
+                    const inputValue = input.value;
+                    const inputRules = rules[inputName];
+                    let isEmptyError = false;
+
+                    if (inputRules) {
+                        inputRules.listOfConditions.forEach(
+                            ({ func, args, errorMessage }) => {
+                                const valueToCheck =
+                                    inputName === "policy"
+                                        ? input.checked
+                                        : inputValue;
+                                const inputIsEmpty =
+                                    func === conditions["isFilled"] &&
+                                    !func(valueToCheck, ...args);
+
+                                const setError = () => {
+                                    errors.push({
+                                        inputName: inputName,
+                                        error: errorMessage,
+                                    });
+                                };
+
+                                if (
+                                    inputIsEmpty ||
+                                    (!isEmptyError &&
+                                        !func(valueToCheck, ...args))
+                                ) {
+                                    setError();
+
+                                    if (inputIsEmpty) {
+                                        isEmptyError = true;
+                                    }
+                                }
+                            }
+                        );
+                    }
+                });
+
+                return errors;
+            }
+
+            function showSummary(fields, errors) {
+                // Limpiamos los errores previos
+                fields.forEach((field) => {
+                    field.classList.remove("form__field--error");
+                });
+
+                if (errors.length > 0) {
+                    let listItems = "";
+
+                    errors.forEach(({ inputName, error }) => {
+                        // Preparamos una lista de errores
+                        listItems += `<li>${error}</li>`;
+
+                        fields.forEach((field) => {
+                            // Buscamos coincidencias entre atributos id de los
+                            // inputs y el valor inputName de los errores, para
+                            // asignar estilos de error a los campos coincidentes.
+                            const input = field.querySelector(".form__input");
+
+                            if (input.id === inputName) {
+                                field.classList.add("form__field--error");
+                            }
+                        });
+                    });
+
+                    summary.classList.add("form__summary--visible");
+                    summaryDescription.textContent = `Revisa ${errors.length} errores a continuación:`;
+                    summaryList.innerHTML = listItems;
+                } else {
+                    summary.classList.remove("form__summary--visible");
+                    summaryDescription.textContent = "";
+                    summaryList.innerHTML = "";
+                }
+            }
+
+            function passwordVisibility() {
+                const isPasswordVisibleClass = "form__field--password-visible";
+                const inputPassword = form.querySelector("input#password");
+                const inputPasswordContainer =
+                    inputPassword.closest(".form__field");
+
+                if (
+                    !inputPasswordContainer.classList.contains(
+                        isPasswordVisibleClass
+                    )
+                ) {
+                    inputPasswordContainer.classList.add(
+                        isPasswordVisibleClass
+                    );
+                    inputPassword.type = "text";
+                } else {
+                    inputPasswordContainer.classList.remove(
+                        isPasswordVisibleClass
+                    );
+                    inputPassword.type = "password";
+                }
+            }
+
+            passwordVisibilityButton.addEventListener("click", () =>
+                passwordVisibility()
+            );
+
+            form.addEventListener("submit", (e) => {
+                e.preventDefault();
+
+                const fields = form.querySelectorAll(".form__field");
+                const inputs = [];
+
+                fields.forEach((field) => {
+                    const input = field.querySelector(".form__input");
+                    inputs.push(input);
+                });
+
+                const errors = validateForm(inputs);
+
+                showSummary(fields, errors);
+            });
+        </script>
     </body>
 </html>
