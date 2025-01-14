@@ -8,6 +8,9 @@ a {
     color: #000;
     font-weight: 600;
 }
+a:hover {
+    text-decoration: underline;
+}
 h1,
 h2 {
     font-family: "Noto serif", "Times New Roman", Times, serif;
@@ -226,6 +229,9 @@ main section {
     border-radius: 8px;
     cursor: pointer;
     margin-top: 24px;
+}
+.form__footer {
+    margin-top: 20px;
 }
 .form__footer-description {
     text-align: center;

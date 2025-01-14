@@ -1,6 +1,7 @@
 const inputUsername = document.getElementById("username");
 const inputEmail = document.getElementById("email");
 const inputPassword = document.getElementById("password");
+const inputPolicy = document.getElementById("policy");
 const inputPasswordContainer = inputPassword.parentElement.parentElement;
 const form = document.getElementById("form");
 const messageSummary = document.getElementById("form__header-message-summary");
@@ -13,12 +14,17 @@ const messageSummaryTitle = document.querySelector(
 const messageSummaryList = document.querySelector(
     "#form__header-message-summary ul"
 );
+
+// Se definen las diferentes condiciones.
 const conditionals = {
     isNotEmpty: (value) => value !== "",
     maxLength: (value, maxLength) => value.length <= maxLength,
     minLength: (value, minLength) => value.length >= minLength,
     regex: (value, pattern) => pattern.test(value),
+    isChecked: (value) => value === true,
 };
+
+// Se asignan condiciones para cada input a partir de su atributo id.
 const rules = {
     username: {
         conditions: [
@@ -68,8 +74,20 @@ const rules = {
             },
         ],
     },
+    policy: {
+        conditions: [
+            {
+                func: conditionals["isChecked"],
+                args: [],
+                errorMessage: "Debes aceptar la Política de privacidad",
+            },
+        ],
+    },
 };
 
+/**
+ * Se validan cada uno de los inputs
+ */
 function validateForm(inputs) {
     const errors = [];
 
@@ -77,29 +95,33 @@ function validateForm(inputs) {
         const inputName = input.id;
         const inputValue = input.value;
         const inputRules = rules[inputName];
-        let isNotEmptyError = false;
+        let isEmptyError = false;
 
         if (inputRules) {
             inputRules.conditions.forEach(({ func, args, errorMessage }) => {
-                const error = {};
+                const valueToCheck =
+                    inputName === "policy" ? input.checked : inputValue;
+                const inputIsEmpty =
+                    func === conditionals["isNotEmpty"] &&
+                    !func(valueToCheck, ...args);
+
+                const setError = () => {
+                    errors.push({
+                        inputName: inputName,
+                        error: errorMessage,
+                    });
+                };
+                console.log(inputName + " : " + inputIsEmpty, isEmptyError);
 
                 if (
-                    func === conditionals["isNotEmpty"] &&
-                    !func(inputValue, ...args)
+                    inputIsEmpty ||
+                    (!isEmptyError && !func(valueToCheck, ...args))
                 ) {
-                    errors.push({
-                        inputName: inputName,
-                        error: errorMessage,
-                    });
+                    setError();
 
-                    isNotEmptyError = true;
-                }
-
-                if (!isNotEmptyError && !func(inputValue, ...args)) {
-                    errors.push({
-                        inputName: inputName,
-                        error: errorMessage,
-                    });
+                    if (inputIsEmpty) {
+                        isEmptyError = true;
+                    }
                 }
             });
         }
@@ -136,26 +158,26 @@ function showMessageSummary(formInputs, inputsErrors) {
     }
 }
 
+function passwordVisibility() {
+    const isPasswordVisibleClass = "is-password-visible";
+
+    if (!inputPasswordContainer.classList.contains(isPasswordVisibleClass)) {
+        inputPasswordContainer.classList.add(isPasswordVisibleClass);
+        inputPassword.type = "text";
+    } else {
+        inputPasswordContainer.classList.remove(isPasswordVisibleClass);
+        inputPassword.type = "password";
+    }
+}
+
+passwordVisibilityButton.addEventListener("click", () => passwordVisibility());
+
 form.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    const formInputs = [inputUsername, inputEmail, inputPassword];
+    const formInputs = [inputUsername, inputEmail, inputPassword, inputPolicy];
 
     const inputsErrors = validateForm(formInputs);
 
     showMessageSummary(formInputs, inputsErrors);
 });
-
-// function passwordVisibility() {
-//     const isPasswordVisibleClass = "is-password-visible";
-
-//     if (!inputPasswordContainer.classList.contains(isPasswordVisibleClass)) {
-//         inputPasswordContainer.classList.add(isPasswordVisibleClass);
-//         inputPassword.type = "text";
-//     } else {
-//         inputPasswordContainer.classList.remove(isPasswordVisibleClass);
-//         inputPassword.type = "password";
-//     }
-// }
-
-// passwordVisibilityButton.addEventListener("click", () => passwordVisibility());
