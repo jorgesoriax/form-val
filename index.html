@@ -50,7 +50,7 @@
                                 alt=""
                             />
                             <p class="form__summary-description">
-                                <!-- Enunciado sobre conteo de errores -->
+                                <!-- Descripción para conteo de errores -->
                             </p>
                         </div>
                         <ul class="form__summary-list">
@@ -58,7 +58,7 @@
                         </ul>
                     </div>
                 </header>
-                <!-- Formulario -->
+                <!-- Cuerpo de formulario -->
                 <form id="form" class="form__body" action="/" method="GET">
                     <div class="form__field">
                         <label class="form__label" for="username">
@@ -143,19 +143,13 @@
                 </footer>
             </section>
         </main>
-        <!-- <script src="/js/main.js" /> -->
         <script>
             const form = document.getElementById("form");
             const summary = document.getElementById("form__summary");
-            const summaryDescription = summary.querySelector(
-                ".form__summary-description"
-            );
-            const summaryList = summary.querySelector(".form__summary-list");
             const passwordVisibilityButton =
                 document.querySelector(".form__visibility");
 
-            // Se definen las diferentes condiciones. Las condiciones responden a la
-            // pregunta ¿Cuándo se cumple la condición?
+            // Define las condiciones de validación disponibles para asignar.
             const conditions = {
                 isFilled: (value) => value !== "",
                 maxLength: (value, maxLength) => value.length <= maxLength,
@@ -164,7 +158,9 @@
                 isChecked: (value) => value === true,
             };
 
-            // Se asignan condiciones para cada input a partir de su atributo id.
+            // Asigna las condiciones de validación para cada input según su
+            // atributo id. Los input que no cuenten con condiciones seran ignorados
+            // en la función de validación validateForm().
             const rules = {
                 username: {
                     listOfConditions: [
@@ -235,41 +231,44 @@
             };
 
             /**
-             * Se validan cada uno de los inputs
+             * Valida los inputs del formulario según las reglas de validación asignadas.
+             *
+             * @param {Array} inputs - Lista de inputs del formulario.
+             * @returns {Array} errors - Lista de errores.
              */
             function validateForm(inputs) {
                 const errors = [];
 
                 inputs.forEach((input) => {
-                    const inputName = input.id;
-                    const inputValue = input.value;
+                    const { id: inputName, value: inputValue, checked } = input;
                     const inputRules = rules[inputName];
                     let isEmptyError = false;
 
                     if (inputRules) {
                         inputRules.listOfConditions.forEach(
                             ({ func, args, errorMessage }) => {
+                                // Define el valor a comparar. Si el input es un checkbox,
+                                // se compara el valor checked.
                                 const valueToCheck =
                                     inputName === "policy"
-                                        ? input.checked
+                                        ? checked
                                         : inputValue;
+                                // Verifica si el input está vacío. Si es así, se muestra
+                                // un único mensaje de error por cada campo afectado,
+                                // es decir, el resto de condiciones se ignoran.
                                 const inputIsEmpty =
                                     func === conditions["isFilled"] &&
                                     !func(valueToCheck, ...args);
-
-                                const setError = () => {
-                                    errors.push({
-                                        inputName: inputName,
-                                        error: errorMessage,
-                                    });
-                                };
 
                                 if (
                                     inputIsEmpty ||
                                     (!isEmptyError &&
                                         !func(valueToCheck, ...args))
                                 ) {
-                                    setError();
+                                    errors.push({
+                                        inputName,
+                                        error: errorMessage,
+                                    });
 
                                     if (inputIsEmpty) {
                                         isEmptyError = true;
@@ -283,30 +282,40 @@
                 return errors;
             }
 
+            /**
+             * Muestra un resumen de errores en el formulario.
+             *
+             * @param {Array} fields - Lista de campos del formulario.
+             * @param {Array} errors - Lista de errores.
+             */
             function showSummary(fields, errors) {
-                // Limpiamos los errores previos
-                fields.forEach((field) => {
-                    field.classList.remove("form__field--error");
-                });
+                const summaryDescription = summary.querySelector(
+                    ".form__summary-description"
+                );
+                const summaryList = summary.querySelector(
+                    ".form__summary-list"
+                );
 
-                if (errors.length > 0) {
-                    let listItems = "";
+                // Limpia los errores previos.
+                fields.forEach((field) =>
+                    field.classList.remove("form__field--error")
+                );
 
-                    errors.forEach(({ inputName, error }) => {
-                        // Preparamos una lista de errores
-                        listItems += `<li>${error}</li>`;
+                if (errors.length) {
+                    // Crea una lista de errores. Valida cada valor de inputName con el id del input.
+                    const listItems = errors
+                        .map(({ inputName, error }) => {
+                            fields.forEach((field) => {
+                                const input =
+                                    field.querySelector(".form__input");
 
-                        fields.forEach((field) => {
-                            // Buscamos coincidencias entre atributos id de los
-                            // inputs y el valor inputName de los errores, para
-                            // asignar estilos de error a los campos coincidentes.
-                            const input = field.querySelector(".form__input");
-
-                            if (input.id === inputName) {
-                                field.classList.add("form__field--error");
-                            }
-                        });
-                    });
+                                if (input.id === inputName) {
+                                    field.classList.add("form__field--error");
+                                }
+                            });
+                            return `<li>${error}</li>`;
+                        })
+                        .join("");
 
                     summary.classList.add("form__summary--visible");
                     summaryDescription.textContent = `Revisa ${errors.length} errores a continuación:`;
@@ -318,43 +327,30 @@
                 }
             }
 
-            function passwordVisibility() {
-                const isPasswordVisibleClass = "form__field--password-visible";
-                const inputPassword = form.querySelector("input#password");
+            /**
+             * Muestra u oculta el contenido del input de contraseña.
+             */
+            function togglePasswordVisibility() {
+                const inputPassword = form.querySelector("#password");
                 const inputPasswordContainer =
                     inputPassword.closest(".form__field");
+                const isVisible = inputPasswordContainer.classList.toggle(
+                    "form__field--password-visible"
+                );
 
-                if (
-                    !inputPasswordContainer.classList.contains(
-                        isPasswordVisibleClass
-                    )
-                ) {
-                    inputPasswordContainer.classList.add(
-                        isPasswordVisibleClass
-                    );
-                    inputPassword.type = "text";
-                } else {
-                    inputPasswordContainer.classList.remove(
-                        isPasswordVisibleClass
-                    );
-                    inputPassword.type = "password";
-                }
+                inputPassword.type = isVisible ? "text" : "password";
             }
 
             passwordVisibilityButton.addEventListener("click", () =>
-                passwordVisibility()
+                togglePasswordVisibility()
             );
 
             form.addEventListener("submit", (e) => {
                 e.preventDefault();
 
-                const fields = form.querySelectorAll(".form__field");
-                const inputs = [];
-
-                fields.forEach((field) => {
-                    const input = field.querySelector(".form__input");
-                    inputs.push(input);
-                });
+                // Crea un array de los campos del formulario.
+                const fields = [...form.querySelectorAll(".form__field")]
+                const inputs = fields.map((field) => field.querySelector(".form__input"));
 
                 const errors = validateForm(inputs);
 
